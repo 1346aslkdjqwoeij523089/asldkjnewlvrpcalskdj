@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: lvrpc-sessions
+    env: node
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: SESSION_CHANNEL
+        value: 1475673336381177960
+      - key: GENERAL_CHANNEL
+        value: 1434195493382127688
+      - key: LOG_CHANNEL
+        value: 1489446890411130942
+      - key: ADMIN_ROLE
+        value: 1434197518924779562
+      - key: PLAYER_ROLE
+        value: 1472590455739777137
+      - key: STAFF_ROLE
+        value: 1434618549791363272
+      - key: ERLC_API_KEY
+        value: BOcULsedVVLcnoSHWjNp-dzNJpBqAUcKecwXyBabALjylwWeuhiKlsqZQjufm
+      - key: VOTE_THRESHOLD
+        value: "5"
+    autoDeploy: true
