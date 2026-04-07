@@ -56,8 +56,8 @@ client.once('ready', async () => {
   // Express for Render keepalive
   const app = express();
   app.get('/', (req, res) => res.send('OK'));
-  app.listen(process.env.PORT || 3000, () => {
-    console.log('Keepalive server running');
+  app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
+    console.log('Keepalive server running on port', process.env.PORT || 3000);
   });
 });
 
@@ -367,5 +367,27 @@ client.on('messageCreate', async (message) => {
   }
 });
 
-// Register slash command
+// Slash command registration (global or guild)
+const { REST, Routes } = require('discord.js');
+const commands = [
+  {
+    name: 'sessions',
+    description: 'LVRPC Session Management Panel'
+  }
+];
+
+client.on('ready', async () => {
+  // ... existing ready code ...
+  
+  // Register global slash command
+  const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
+  try {
+    console.log('Started refreshing slash commands.');
+    await rest.put(Routes.applicationCommands(client.user.id), { body: commands });
+    console.log('Slash commands registered globally (15min sync).');
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 client.login(process.env.BOT_TOKEN);
